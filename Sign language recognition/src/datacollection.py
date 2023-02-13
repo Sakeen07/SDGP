@@ -5,13 +5,11 @@ import numpy as np
 import math
 import time
 
-
 cap = cv2.VideoCapture(0)
 detector = HandDetector(maxHands=1)
 offset = 20
 imgSize = 600
-folder = ""
-# File That use to save the images
+folder = "Data/L"  # File That use to save the images
 counter = 0
 
 while True:
@@ -39,19 +37,25 @@ while True:
         else:
             k = imgSize / w
             hCal = math.ceil(k * h)
-            imgResize = cv2.resize(imgCrop, (imgSize, hCal))
+
+            if imgCrop.size > 0:
+                imgResize = cv2.resize(imgCrop, (imgSize, hCal))
+            else:
+                continue
             imgResizeShape = imgResize.shape
 
             hGap = math.ceil((imgSize - hCal) / 2)
 
             imgWhite[hGap:hCal + hGap, :] = imgResize
 
-        cv2.imshow("ImageCrop", imgCrop)
-        cv2.imshow("ImageWhite", imgWhite)
+        if x > 0 + offset and y > 0 + offset and w > 0 + offset and h > 0 + offset:
+            cv2.imshow("ImageCrop", imgCrop)
+            cv2.imshow("ImageWhite", imgWhite)
 
     cv2.imshow("Image", img)
     key = cv2.waitKey(1)
 
+    # click s if you want to save the images
     if key == ord("s"):
         counter += 1
         cv2.imwrite(f'{folder}/Image_{time.time()}.jpg', imgWhite)
