@@ -10,7 +10,7 @@ cap = cv2.VideoCapture(0)
 detector = HandDetector(maxHands=1)
 offset = 20
 imgSize = 600
-folder = ""
+folder = "Data/Z"
 # File That use to save the images
 counter = 0
 
