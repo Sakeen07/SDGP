@@ -10,7 +10,7 @@ cap = cv2.VideoCapture(0)
 detector = HandDetector(maxHands=1)
 offset = 20
 imgSize = 600
-folder = ""
+folder = "Data/H"
 # File That use to save the images
 counter = 0
 
@@ -52,7 +52,7 @@ while True:
     cv2.imshow("Image", img)
     key = cv2.waitKey(1)
 
-    if key == ord("s"):
+    if key == ord("d"):
         counter += 1
         cv2.imwrite(f'{folder}/Image_{time.time()}.jpg', imgWhite)
 
