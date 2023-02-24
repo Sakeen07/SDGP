@@ -57,7 +57,7 @@ while True:
     cv2.waitKey(1)
 
 
-    # Every when hand sign learn it has to be act like a keyboard "A" in the data prediction in the gui create label or text field - pamudu
+   # Every when hand sign learn it has to be act like a keyboard "A" in the data prediction in the gui create label or text field - pamudu
     # create button called "Next" which will keep going the word. - pamudu
     # create button called "clear"
     # Every time when it learn the hand sign that letter has to be printed in the textfield or label.
