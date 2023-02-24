@@ -6,7 +6,7 @@ import math
 
 cap = cv2.VideoCapture(0)
 detector = HandDetector(maxHands=1)
-classifier = Classifier("ASL_model.h5")
+classifier = Classifier("ASL_model.h5", "BSL_model.h5")
 offset = 20
 imgSize = 600
 folder = "Data/BSL/Z"
@@ -55,3 +55,13 @@ while True:
 
     cv2.imshow("Image", img)
     cv2.waitKey(1)
+
+
+    # Every when hand sign learn it has to be act like a keyboard "A" in the data prediction in the gui create label or text field - pamudu
+    # create button called "Next" which will keep going the word. - pamudu
+    # create button called "clear"
+    # Every time when it learn the hand sign that letter has to be printed in the textfield or label.
+    # when we press a button in the or press the button in key board have to trigger the text field word should be read by ai. - create autometic generated text in the file and make it read by ai. (vinuka)
+    # text filed in upper part which will give suggestion word for to communicate - Sakeen
+    # In the gui there has to a button called "Space" only this feature should trigger whenever we space bar also.
+    # merge code.
