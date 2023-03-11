@@ -1,15 +1,17 @@
-import cv2
-from cvzone.HandTrackingModule import HandDetector
-from cvzone.ClassificationModule import Classifier
-import numpy as np
 import math
+
+import cv2
+import numpy as np
+from cvzone.ClassificationModule import Classifier
+from cvzone.HandTrackingModule import HandDetector
 
 cap = cv2.VideoCapture(0)
 detector = HandDetector(maxHands=1)
-classifier = Classifier("ASL_model.h5", "BSL_model.h5")
+asl_classifier = Classifier("ASL_model.h5")
+bsl_classifier = Classifier("BSL_model.h5")
 offset = 20
 imgSize = 600
-folder = "Data/BSL/Z"
+folder = "Data/BSL/A"
 # File That use to save the images
 counter = 0
 
@@ -37,8 +39,10 @@ while True:
             wGap = math.ceil((imgSize - wCal) / 2)
 
             imgWhite[:, wGap:wCal + wGap] = imgResize
-            prediction, index = classifier.getPrediction(img)
-            print(prediction, index)
+            prediction, index = asl_classifier.getPrediction(img)
+            prediction, index = bsl_classifier.getPrediction(img)
+            predicted_label = labels[index]
+            cv2.putText(imgWhite, predicted_label, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
         else:
             k = imgSize / w
@@ -55,6 +59,7 @@ while True:
 
     cv2.imshow("Image", img)
     cv2.waitKey(1)
+
 
 
    # Every when hand sign learn it has to be act like a keyboard "A" in the data prediction in the gui create label or text field - pamudu
