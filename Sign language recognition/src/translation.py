@@ -1,66 +1,72 @@
-
-
 from tkinter import *
-from tkinter import ttk
-from googletrans import Translator,LANGUAGES
-
-def change(text="type",src="English",dest ="Hindi"):
-    text1=text
-    src1=src
-    dest1=dest
-    trans= Translator()
-    trans1=trans.translate(text,src=src1,dest=dest1)
-    return trans1.text
-
-def data():
-    s=comb_sor.get()
-    d=comb_dest.get()
-    message=Sor_txt(1.0,END)
-    textget =change(text=message ,src=s,dest=d)
-    dest_txt.delete(1.0,END)
-    dest_txt.insert(END,textget)
-
-
+import googletrans
+import textblob
+from tkinter import ttk, messagebox
 
 root = Tk()
-root.title("Translator")
-root.geometry("500x800")
-root.config(bg="red")
-
-lab_txt =Label(root,text="Translator",font=("Time New Roman",40,"bold"))
-lab_txt.place(x=100,y=40,height=50,width=300)
-
-frame =Frame(root).pack(side=BOTTOM)
-
-lab_txt =Label(root,text="Source Text",font=("Time New Roman",20,"bold"),fg="BLACK",bg='RED')
-lab_txt.place(x=100,y=100,height=20,width=300)
-
-Sor_txt =Text(frame,font=("Time New Roman",40,"bold"),wrap=WORD)
-Sor_txt.place(x=10,y=130,height=150,width=480)
-
-list_text =list(LANGUAGES.values())
-
-comb_sor= ttk.Combobox(frame,value=list_text)
-comb_sor.place(x=10,y=300,height=40,width=150)
-comb_sor.set('english')
-
-button_change =Button(frame,text="Translate",relief=RAISED,command=data)
-button_change.place(x=170,y=300,height=40,width=150)
-
-comb_dest= ttk.Combobox(frame,value=list_text)
-comb_dest.place(x=330,y=300,height=40,width=150)
-comb_dest.set('english')
-
-lab_txt =Label(root,text="Destination Text",font=("Time New Roman",20,"bold"),fg="BLACK",bg='RED')
-lab_txt.place(x=100,y=360,height=20,width=300)
-
-dest_txt =Text(frame,font=("Time New Roman",20,"bold"),wrap=WORD)
-dest_txt.place(x=10,y=400,height=150,width=480)
+root.title = "Translator"
+root.iconbitmap()  # file path
+root.geometry("880x300")
 
 
+def translate_it():
+    # Deleting Any existing words
+    translated_text.delete(1.0, END)
+    try:
+        for key, value in languages.items():
+            if value == original_combo.get():
+                from_language_key = key
+
+        for key, value in languages.items():
+            if value == translated_combo.get():
+                to_language_key = key
+
+        # Turn Original text in to textblob
+        words = textblob.TextBlob(original_text.get(1.0, END))
+
+        # Translate Text
+        words = words.translate(from_lang=from_language_key, to=to_language_key)
+
+        # Output Text
+        translated_text.insert(1.0, words)
 
 
+    except Exception as e:
+        messagebox.showerror("Translator", e)
 
 
+def clear():
+    original_text.delete(1.0, END)
+    translated_text.delete(1.0, END)
+
+
+# Adding Language list from googleTrans
+languages = googletrans.LANGUAGES
+language_list = list(languages.values())
+
+# Creating a Text box for original text field
+original_text = Text(root, height=10, width=45)
+original_text.grid(row=0, column=0, pady=20, padx=10)
+
+# Translate button
+translate_button = Button(root, text="Translate ", font=("Helvetica", 20), command=translate_it)
+translate_button.grid(row=0, column=1, padx=10)
+
+# Creating a Text box for translated text field
+translated_text = Text(root, height=10, width=50)
+translated_text.grid(row=0, column=2, pady=20, padx=10)
+
+# Creating Combo Boxes
+original_combo = ttk.Combobox(root, width=50, value=language_list)
+original_combo.current(21)
+original_combo.grid(row=1, column=0)
+
+translated_combo = ttk.Combobox(root, width=50, value=language_list)
+translated_combo.current(26)
+translated_combo.grid(row=1, column=2)
+
+# Creating A clear button
+clear_button = Button(root, text="Clear", command=clear)
+clear_button.grid(row=2, column=1)
 
 root.mainloop()
