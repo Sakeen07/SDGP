@@ -70,3 +70,9 @@ clear_button = Button(root, text="Clear", command=clear)
 clear_button.grid(row=2, column=1)
 
 root.mainloop()
+
+
+# need to remove the GUI
+# Connect with the buttons functionality
+# Connect with the data prediction Text file.
+#
