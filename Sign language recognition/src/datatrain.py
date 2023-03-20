@@ -10,8 +10,8 @@ from keras.optimizers import Adam
 from keras.applications import MobileNet
 
 # Define data directories
-train_dir = 'Data/BSL'
-val_dir = 'Data/BSL'
+train_dir = 'Data/Final_Training'
+val_dir = 'Data/Final_Validation'
 
 # Define image dimensions and batch size
 img_width, img_height = 224, 224
