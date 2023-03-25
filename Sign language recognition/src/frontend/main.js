@@ -38,6 +38,18 @@ function onResults(results) {
     canvasCtx.save();
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+
+    const data = results;
+            fetch('/post-request', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+            body: JSON.stringify(data)
+            })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
     if (results.multiHandLandmarks && results.multiHandedness) {
         for (let index = 0; index < results.multiHandLandmarks.length; index++) {
             const classification = results.multiHandedness[index];

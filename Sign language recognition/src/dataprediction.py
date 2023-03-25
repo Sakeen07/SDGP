@@ -4,6 +4,9 @@ from cvzone.ClassificationModule import Classifier
 import numpy as np
 import math
 import time
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
 
 cap = cv2.VideoCapture(0)
 detector = HandDetector(maxHands=1)
@@ -16,6 +19,16 @@ label_count = {}
 final_label = ""
 prev_label = ""
 start_time = time.time()
+
+@app.route('/post-request', methods=['POST'])
+def receive_data():
+    data = request.get_json()
+    # Process the data here
+    response_data = {'message': 'Data received'}
+    return jsonify(response_data)
+
+if __name__ == '__main__':
+    app.run()
 
 while True:
     success, img = cap.read()
