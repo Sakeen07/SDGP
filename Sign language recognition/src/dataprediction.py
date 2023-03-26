@@ -196,3 +196,97 @@ cv2.destroyAllWindows()
 # Connect the voice and text with the translation
 
 # Connect with the frontend.
+
+# import cv2
+# from cvzone.HandTrackingModule import HandDetector
+# from cvzone.ClassificationModule import Classifier
+# import numpy as np
+# import math
+# import time
+# from flask import Flask, request, jsonify
+#
+# app = Flask(_name_)
+# cap = cv2.VideoCapture(0)
+# detector = HandDetector(maxHands=1)
+# classifier_asl = Classifier("ASL_model.h5", "Model.txt")
+# classifier_bsl = Classifier("BSL_model.h5", "Model.txt")
+# offset = 20
+# imgSize = 600
+# prediction_list = []
+# label_count = {}
+# final_label = ""
+# prev_label = ""
+# start_time = time.time()
+#
+#
+# @app.route('/predict', methods=['POST'])
+# def predict():
+#     data = request.get_json()
+#     image_base64 = data['image']
+#     img = cv2.imdecode(np.fromstring(base64.b64decode(
+#         image_base64), np.uint8), cv2.IMREAD_COLOR)
+#     hands, img = detector.findHands(img)
+#     if hands:
+#         hand = hands[0]
+#         x, y, w, h = hand['bbox']
+#
+#         imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
+#         imgCrop = img[y - offset:y + h + offset, x - offset:x + w + offset]
+#         imgCropShape = imgCrop.shape
+#         aspectRatio = h / w
+#
+#         if aspectRatio > 1:
+#             k = imgSize / h
+#             wCal = math.ceil(k * w)
+#             imgResize = cv2.resize(imgCrop, (wCal, imgSize))
+#             imgResizeShape = imgResize.shape
+#             wGap = math.ceil((imgSize - wCal) / 2)
+#             imgWhite[:, wGap:wCal + wGap] = imgResize
+#
+#         else:
+#             k = imgSize / w
+#             hCal = math.ceil(k * h)
+#             imgResize = cv2.resize(imgCrop, (imgSize, hCal))
+#             imgResizeShape = imgResize.shape
+#
+#             hGap = math.ceil((imgSize - hCal) / 2)
+#
+#             imgWhite[hGap:hCal + hGap, :] = imgResize
+#
+#         # Use both classifiers to predict the sign language gesture
+#         prediction_asl = classifier_asl.getPrediction(imgWhite)[0]
+#         prediction_bsl = classifier_bsl.getPrediction(imgWhite)[0]
+#
+#         # Choose the prediction with higher probability
+#         if prediction_asl[1] > prediction_bsl[1]:
+#             final_prediction = prediction_asl[0]
+#         else:
+#             final_prediction = prediction_bsl[0]
+#
+#         # Add the prediction to the list
+#         prediction_list.append(final_prediction)
+#
+#         # Count the labels in the prediction list
+#         label_count = {}
+#         for label in prediction_list:
+#             if label not in label_count:
+#                 label_count[label] = 1
+#             else:
+#                 label_count[label] += 1
+#
+#         # Check if a label has occurred for at least three seconds
+#         if time.time() - start_time >= 3:
+#             max_count = 0
+#             for label, count in label_count.items():
+#                 if count > max_count:
+#                     max_count = count
+#                     final_label = label
+#             if prev_label != final_label:
+#                 start_time = time.time()
+#             prev_label = final_label
+#
+#         print(final_label)
+#
+#         # Display the predicted label at the bottom of the frame
+#         cv2.rectangle(
+#             img, (0, img.shape[0] - 50), (img.shape[1], img.shape[0]), (255, 255, 255), cv2.FILLED)
