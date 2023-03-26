@@ -55,8 +55,36 @@
     justify-content: center;
     align-items: center;
   }
-  .output_canvas {
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .button-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
+    text-align: center;
+    padding-bottom: 20px; /* add some padding so the buttons don't overlap the shoutout text */
+  }
+
+  .button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background-color: lightgray;
+  }
+  .output_canvas {
+    width: 50%;
     display: block;
     position: relative;
     left: 0;
