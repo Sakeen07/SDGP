@@ -54,6 +54,7 @@ translate_button.grid(row=0, column=1, padx=10)
 
 # Creating a Text box for translated text field
 translated_text = Text(root, height=10, width=50)
+#translated_text = Text(root, height=15, width=55)
 translated_text.grid(row=0, column=2, pady=20, padx=10)
 
 # Creating Combo Boxes
@@ -64,6 +65,8 @@ original_combo.grid(row=1, column=0)
 translated_combo = ttk.Combobox(root, width=50, value=language_list)
 translated_combo.current(26)
 translated_combo.grid(row=1, column=2)
+#translated_combo.current(22)
+#translated_combo.grid(row=1, column=2)
 
 # Creating A clear button
 clear_button = Button(root, text="Clear", command=clear)
