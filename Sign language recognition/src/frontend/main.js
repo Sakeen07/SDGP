@@ -29,7 +29,33 @@ const grid = new controls3d.LandmarkGrid(landmarkContainer, {
     showHidden: false,
     centered: false,
 });
+
+var socket = io();
+
+// get the video element from the HTML document
+var video = document.querySelector('video');
+
+// create a new MediaStream object
+navigator.mediaDevices.getUserMedia({ video: true })
+  .then(function(stream) {
+    // display the video stream in the video element
+    video.srcObject = stream;
+
+    // send the video stream to the server using Socket.IO
+    var mediaStreamTrack = stream.getVideoTracks()[0];
+    var sender = peerConnection.addTrack(mediaStreamTrack, stream);
+    sender.on("sendable", function() {
+    var data = sender.send();
+      console.log("Sending data:", data); // log the data being sent
+      socket.emit("stream", sender.send());
+    });
+  })
+  .catch(function(err) {
+    console.log('Error: ' + err);
+  });
+
 function onResults(results) {
+    console.log(results)
     // Hide the spinner.
     document.body.classList.add('loaded');
     // Update the frame rate.
