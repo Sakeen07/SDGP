@@ -17,6 +17,7 @@ while True:
     success, img = cap.read()
     img_output = img.copy()
     hands, img = detector.findHands(img)
+    print(img)
     if hands:
         hand = hands[0]
         x, y, w, h = hand['bbox']
