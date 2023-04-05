@@ -111,6 +111,16 @@ def generate(video_path=None, cam_device=0):
     # release the video stream
     vs.release()
 
+@app.get("/label")
+def get_label():
+    return label
 
+@app.get("/video_feed")
+def video_feed():
+    return StreamingResponse(generate(), media_type="multipart/x-mixed-replace;boundary=frame")
+
+    # to read from webcam
+    # cam_device = 0
+    # return StreamingResponse(generate(cam_device=cam_device), media_type="multipart/x-mixed-replace;boundary=frame")
 
 
