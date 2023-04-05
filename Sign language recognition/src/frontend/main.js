@@ -3,6 +3,7 @@
         const video = document.getElementById('videoStream');
         const button = document.getElementById('add-btn');
         const text = document.getElementById("get-label")
+        const txtarea = document.getElementById("txt");
 
         let sentense = [];
         let letters = [];
@@ -21,7 +22,7 @@
             .then(response => response.json())
             .then( data => {
               label.innerText = `Label: ${data}`;
-              
+              console.log(data);
               creatSentense(data)
             })
             // , creatSentense(letter)
@@ -44,7 +45,9 @@
           }}
 
           function deletefunc() {
-              text.value = ''
+              text.value = '';
+              sentense = []
+              txtarea.value = ''
           }
 
           function creatSentense(label) {
@@ -52,6 +55,7 @@
             sentense.push(label)
             console.log(sentense);
             text.value = sentense.join('')
+            txtarea.value = sentense.join('')
           }
 
           button.addEventListener('click', function() {

@@ -3,44 +3,38 @@
 <head>
     <title>Hand Detection Live Stream</title>
     <link rel="stylesheet" href="sdgp.css">
-    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    
-    <!-- <video id="videoStream" width="50%" height="50%" src="http://127.0.0.1:8080/video_feed" autoplay>
-    </video> -->
-    <h1>SIGN LANGUAGE RECOGNITION</h1>
-    <div class="main-div">
-      
-    <iframe src="http://127.0.0.1:8080/video_feed" height="300" width="400" title="Iframe Example"></iframe>
-    <p id="label"></p><!DOCTYPE html>
-    <html>
-    <head>
-        <title>Hand Detection Live Stream</title>
-        <link rel="stylesheet" href="sdgp.css">
-        
-        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    </head>
-    <body>
         
         <!-- <video id="videoStream" width="50%" height="50%" src="http://127.0.0.1:8080/video_feed" autoplay>
         </video> -->
         <h1>SIGN LANGUAGE RECOGNITION</h1>
         <div class="main-div">
+
+          <div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+         </div>
           
         <iframe src="http://127.0.0.1:8080/video_feed" height="300" width="400" title="Iframe Example"></iframe>
         <p id="label"></p>
         <button id="add-btn"> Get label </button >
-        <input type="text">
-        <button id="del-btn"> Delete label</button>
+        <input id="get-label" type="text">
+        <button id="del-btn" onclick="deletefunc()"> Delete label</button>
         <br><br><br>
+        
        
+        
         <div class="container">
             <div class="headContainer"> </div>
             <div class="wrapper">
                 <div class="text-input">
-                    <textarea spellcheck="false" class="from-text" placeholder="Enter Text"></textarea>
+                    <textarea id="txt" spellcheck="false" class="from-text" placeholder="Enter Text"></textarea>
                     <textarea spellcheck="false" readonly disabled class="to-text" placeholder="Translation"></textarea>
     
                 </div>
@@ -71,74 +65,11 @@
             <div class="Thefooter"></div>
     
         </div>
-     
-     
-      
-           
-      
-      
-     
         
-            <script src="countries.js"></script>
-            <script src="script.js"></script>
-            
-    </body>
-    </html>
-    <button id="add-btn">
-       Get label
-    </button >
-    <input type="text" id="get-label">
-    <button id="del-btn" onclick="deletefunc()">
-      Delete label
-    </button>
-  </div>
-  <br><br><br>
-  <textarea id="myTextarea" rows="4" cols="50">
-       
-</textarea>
-  
-  <div class="container">
-      <div class="headContainer"> </div>
-      <div class="wrapper">
-          <div class="text-input">
-              <textarea spellcheck="false" class="from-text" placeholder="Enter Text"></textarea>
-              <textarea spellcheck="false" readonly disabled class="to-text" placeholder="Translation"></textarea>
-
-          </div>
-          <ul class="controls">
-              <li class="row from">
-                  <div class="icons">
-                      <!-- <i id="from" class="fas fa-volume-up"></i> -->
-                      <i id="from" class="fas fa-copy"></i>
-                      
-                  </div>
-                  <select ></select>    
-              </li>
-              <li class="exchange" ><i class="fas fa-exchange-alt"></i> </li>
-              <li class="row to">
-                  <select></select>
-                  <div class="icons">
-                      <!-- <i id="to" class="fas fa-volume-up" ></i> -->
-                      <i id="to" class="fas fa-copy" ></i>
-                  </div>
-
-              </li>
-
-          </ul>
-
-      </div>
-      <button>Translate Text</button>
-      <!-- <textarea id="myTextarea" rows="4" cols="50"></textarea> -->
-      <button id ="voice">VOICE</button>
-
-      <button id ="Help">Help</button>
-      <div class="Thefooter"></div>
-
-  </div>
-
-    
-    <script src="countries.js"></script>
+        <script src="countries.js"></script>
         <script src="script.js"></script>
         <script src="main.js"></script>
-</body>
-</html>
+        </div>
+    </body>
+    </html>
+    
