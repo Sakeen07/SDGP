@@ -7,6 +7,7 @@ import cv2
 import math
 import numpy as np
 import threading
+import imutils
 
 app = FastAPI()
 lock = threading.Lock()
@@ -69,6 +70,30 @@ def detect_objects(frame):
         return {"Label": labels[index], "Result": img_output}
     else:
         return {"Label": "", "Result": img_output}
+
+def generate(video_path=None, cam_device=0):
+    # grab global references to the output frame and lock variables
+    global outputFrame, lock, label
+    # initialize the video stream
+    if video_path is not None:
+        vs = cv2.VideoCapture(video_path)
+    else:
+        vs = cv2.VideoCapture(cam_device)
+    # loop over frames from the video stream
+    while True:
+        # read the next frame from the video stream
+        (grabbed, frame) = vs.read()
+        # if the frame was not grabbed, then we have reached the end of the video
+        if not grabbed:
+            break
+        # resize the frame to have a maximum width of 400 pixels
+        frame = imutils.resize(frame, width=400)
+        # apply some image processing if necessary
+
+        # feed the frames to the object detection model like below
+        result_dict = detect_objects(frame)
+        frame = result_dict['Result']
+        label = result_dict['Label']
 
 
 
