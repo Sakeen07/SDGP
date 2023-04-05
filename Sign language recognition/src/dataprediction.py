@@ -95,5 +95,22 @@ def generate(video_path=None, cam_device=0):
         frame = result_dict['Result']
         label = result_dict['Label']
 
+        # ...
+        # wait until the lock is acquired
+        with lock:
+            # update the output frame
+            outputFrame = frame.copy()
+            # encode the frame in JPEG format
+            (flag, encodedImage) = cv2.imencode(".jpg", outputFrame)
+            # ensure the frame was successfully encoded
+            if not flag:
+                continue
+        # yield the output frame in the byte format
+        res_label = str(label).encode()
+        yield (b'--frame\r\n' + b'Content-Type: image/jpeg\r\n' + b'Content-Length: ' + str(len(encodedImage)).encode() + b'\r\n' + b'Label: ' + res_label + b'\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
+    # release the video stream
+    vs.release()
+
+
 
 
