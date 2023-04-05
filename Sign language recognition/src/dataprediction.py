@@ -3,6 +3,8 @@ from cvzone.HandTrackingModule import HandDetector
 from cvzone.ClassificationModule import Classifier
 import numpy as np
 import math
+from flask import Flask, request
+from flask_cors import CORS
 
 cap = cv2.VideoCapture(0)
 detector = HandDetector(maxHands=1)
@@ -12,6 +14,20 @@ classifier = Classifier("Model.h5", "Model.txt")
 
 labels = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
           "W", "X", "Y", "Z"]
+
+app = Flask(__name__)
+CORS(app)
+
+@app.route('/video', methods=['GET', 'POST'])
+def process_video_data():
+    data = request.get_json()
+    cap_vid = data.get('cap')
+
+    # Process the video data here
+    return cap_vid
+
+if __name__ == '__main__':
+    app.run()
 
 while True:
     success, img = cap.read()
@@ -35,6 +51,7 @@ while True:
             wGap = math.ceil((imgSize - wCal) / 2)
             imgWhite[:, wGap:wCal + wGap] = imgResize
             prediction, index = classifier.getPrediction(imgWhite, draw=False)
+
             print(prediction, index)
 
         else:
@@ -53,6 +70,7 @@ while True:
 
     cv2.imshow("Image", img_output)
     cv2.waitKey(1)
+
 
 # Connect the text word to the AI generated voice
 # Connect the voice and text with the translation
