@@ -1,39 +1,39 @@
-import cv2
+from fastapi import FastAPI
+from fastapi.responses import StreamingResponse
 from cvzone.HandTrackingModule import HandDetector
 from cvzone.ClassificationModule import Classifier
-import numpy as np
+from fastapi.middleware.cors import CORSMiddleware
+import cv2
 import math
-from flask import Flask, request
-from flask_cors import CORS
+import numpy as np
+import threading
 
-cap = cv2.VideoCapture(0)
+app = FastAPI()
+lock = threading.Lock()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 detector = HandDetector(maxHands=1)
 offset = 20
 imgSize = 600
 classifier = Classifier("Model.h5", "Model.txt")
-
 labels = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
           "W", "X", "Y", "Z"]
+global label
+label = ""
 
-app = Flask(__name__)
-CORS(app)
-
-@app.route('/video', methods=['GET', 'POST'])
-def process_video_data():
-    data = request.get_json()
-    cap_vid = data.get('cap')
-
-    # Process the video data here
-    return cap_vid
-
-if __name__ == '__main__':
-    app.run()
-
-while True:
-    success, img = cap.read()
+def detect_objects(frame):
+    if frame is None or frame.size == 0:
+        return {"Label": "", "Result": None}
+    
+    img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     img_output = img.copy()
-    hands, img = detector.findHands(img)
-    print(img)
+    hands, img = detector.findHands(frame)
     if hands:
         hand = hands[0]
         x, y, w, h = hand['bbox']
@@ -62,17 +62,13 @@ while True:
             hGap = math.ceil((imgSize - hCal) / 2)
             imgWhite[hGap:hCal + hGap, :] = imgResize
             prediction, index = classifier.getPrediction(imgWhite, draw=False)
-        cv2.putText(img_output, labels[index], (x, y - 20), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 255), 2)
-        cv2.rectangle(img_output, (x - offset, y - offset), (x + w + offset, y + h + offset), (255, 0, 255), 4)
+        cv2.putText(img_output, labels[index], (x, y - 20),
+                    cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 255), 2)
+        cv2.rectangle(img_output, (x - offset, y - offset),
+                      (x + w + offset, y + h + offset), (255, 0, 255), 4)
+        return {"Label": labels[index], "Result": img_output}
+    else:
+        return {"Label": "", "Result": img_output}
 
-        cv2.imshow("ImageCrop", imgCrop)
-        cv2.imshow("ImageWhite", imgWhite)
-
-    cv2.imshow("Image", img_output)
-    cv2.waitKey(1)
 
 
-# Connect the text word to the AI generated voice
-# Connect the voice and text with the translation
-
-# Connect with the frontend.
