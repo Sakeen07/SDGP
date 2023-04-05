@@ -2,13 +2,25 @@
 <html>
 <head>
     <title>Hand Detection Live Stream</title>
+    <link rel="stylesheet" href="sdgp.css">
 </head>
 <body>
-    <h1>Hand Detection Live Stream</h1>
+    
     <!-- <video id="videoStream" width="50%" height="50%" src="http://127.0.0.1:8080/video_feed" autoplay>
     </video> -->
+    <h1>SIGN LANGUAGE RECOGNITION</h1>
+    <div class="main-div">
+      
     <iframe src="http://127.0.0.1:8080/video_feed" height="300" width="400" title="Iframe Example"></iframe>
     <p id="label"></p>
+    <button id="add-btn">
+       Get label
+    </button >
+    <input type="text">
+    <button id="del-btn">
+      Delete label
+    </button>
+  </div>
 
     <script src="main.js"></script>
 </body>
