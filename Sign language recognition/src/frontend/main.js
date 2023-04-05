@@ -75,7 +75,7 @@ const body = document.querySelector("body");
 helpBtn.addEventListener("click", () => {
   const popup = document.createElement("div");
   popup.setAttribute("id", "help-popup");
-  popup.innerHTML = "<h3>Refer to this video for instructions</h3><p>Some help text goes here.</p><button id='close-btn'>Close</button>";
+  popup.innerHTML = "<h3>Refer to this video for instructions</h3><p><a href ='https://drive.google.com/drive/folders/1oK3dEuXnlI2oJKAXSMDWyiSYx8O-RU4t?usp=sharing'>Click here</a></p><button id='close-btn'>Close</button>";
   body.appendChild(popup);
 
   const closeBtn = document.getElementById("close-btn");
