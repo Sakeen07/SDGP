@@ -1,7 +1,8 @@
 // Get a reference to the video element and the label element
         const label = document.getElementById('label');
         const video = document.getElementById('videoStream');
-        const button = document.getElementById('btn');
+        const button = document.getElementById('add-btn');
+        const text = document.getElementById("get-label")
 
         let sentense = [];
         let letters = [];
@@ -14,38 +15,48 @@
         const endpointUrl = 'http://127.0.0.1:8080/label';
         const videoUrl = 'http://127.0.0.1:8080/video_feed';
 
-        function getValueFromEndpoint() {
-          fetch(endpointUrl)
+        function getValueFromEndpoint(buttonClicked=false) {
+          if(buttonClicked){
+            fetch(endpointUrl)
             .then(response => response.json())
-            .then(data => {
-              // Do something with the retrieved value
+            .then( data => {
               label.innerText = `Label: ${data}`;
-              // console.log(data)
-              console.log('Retrieved value:', data);
-              letter = data
-              // button.addEventListener('click', function(){
-              //   sentense.push(data)
-              //   console.log(sentense);
-              // })
+              
+              creatSentense(data)
             })
             // , creatSentense(letter)
             .catch(error => {
               // Handle any errors that occur during the request
               console.error('Error retrieving value:', error);
             });
-            creatSentense(letter)
-          }
+          }else{
+            fetch(endpointUrl)
+            .then(response => response.json())
+            .then( data => {
+              // Do something with the retrieved value
+              label.innerText = `Label: ${data}`;
+            })
+            // , creatSentense(letter)
+            .catch(error => {
+              // Handle any errors that occur during the request
+              console.error('Error retrieving value:', error);
+            });
+          }}
 
-          
+          function deletefunc() {
+              text.value = ''
+          }
 
           function creatSentense(label) {
-            console.log(letter);
-            button.addEventListener('click', function() {
-              sentense.push(label)
-              console.log(sentense);
-            });
+            // console.log(label);
+            sentense.push(label)
+            console.log(sentense);
+            text.value = sentense.join('')
           }
 
+          button.addEventListener('click', function() {
+            getValueFromEndpoint(true)
+          });
 // Call the function initially to retrieve the value immediately
 getValueFromEndpoint();
 
