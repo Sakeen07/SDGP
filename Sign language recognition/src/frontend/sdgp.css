@@ -1,38 +1,116 @@
 body {
-font-family: Georgia, 'Times New Roman', Times, serif;
-text-align: center;
-background-color: #0D5773;
-color: white;
-}
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  text-align: center;
+  background-color: #0D5773;
+  color: white;
+  }
+  
+  .main-div{
+    width: 30%;
+    margin: auto
+  }
+  
+  #add-btn {
+    padding: 2%;
+    font-weight: 100;
+    background-color: #C6F9AB  ;
+    border: 0;
+    border-radius: 5px;
+    font-family: sans-serif
+  }
+  
+  #del-btn {
+    padding: 2%;
+    font-weight: 100;
+    background-color: #FDABA5  ;
+    border: 0;
+    border-radius: 5px;
+  }
+  #transBtn{
+      padding: 2%;
+    font-weight: 100;
+    background-color: #fdf4a5  ;
+    border: 0;
+    border-radius: 5px;
 
-.main-div{
-  width: 30%;
-  margin: auto
-}
+  }
+  
+  input {
+    height: 30px;
+    border-radius: 5px;
+    border: 0;
+  }
+  
+  p {
+    font-size: larger;
+  }
 
-#add-btn {
-  padding: 2%;
-  font-weight: 100;
-  background-color: #C6F9AB  ;
-  border: 0;
-  border-radius: 5px;
-  font-family: sans-serif
-}
-
-#del-btn {
-  padding: 2%;
-  font-weight: 100;
-  background-color: #FDABA5  ;
-  border: 0;
-  border-radius: 5px;
-}
-
-input {
-  height: 30px;
-  border-radius: 5px;
-  border: 0;
-}
-
-p {
-  font-size: larger;
-}
+  
+  
+  .Tbody{
+      display: flex;
+      align-items: center;
+      justify-content: bottom center;
+      
+      padding: 0 100px;
+      min-height: 150vh;
+  }
+  .headContainer{
+      max-width: 650px;
+      width: 100%;
+      padding-bottom: 20px;
+      background: #fff;
+      border-radius: 7px;
+      color: grey;
+      display: flex;
+      align-content:space-between;
+      justify-content: center;
+  }
+  .container{
+      max-width: 300px;
+      width: 60%;
+      padding: 10px;
+      background: #fff;
+      border-radius: 7px;
+      box-shadow: 0 10px 20px rgba(red, green, blue, alpha);
+  
+  }
+  .wrapper{
+      border-radius: 5px;
+      border: 1px solid #ccc;
+  
+  
+  }
+  .wrapper .text-input{
+      display: flex;
+      border-bottom: 1px solid #ccc;
+  }
+  .text-input .to-text{
+      border-radius: 10px;
+      border-left: 1px solid #ccc;
+  
+  }
+  .text-input .to-textarea{
+      height: 0px;
+      width: 100%;
+      border: none;
+      font-size: 25px;
+      padding: 10px 15px;
+      border-radius: 5px;
+  
+  }
+  .controls.row.icons{
+      display: none;
+  }
+  .container button{
+      padding: 13px;
+      font-size: 16px;
+  }
+  .controls .row select{
+      font-size: 16px;
+      
+  
+  }
+  .controls .exchange{
+      font-size: 14px;
+  }
