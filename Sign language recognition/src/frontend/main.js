@@ -61,8 +61,25 @@
           button.addEventListener('click', function() {
             getValueFromEndpoint(true)
           });
+
 // Call the function initially to retrieve the value immediately
 getValueFromEndpoint();
 
 // Set the interval to retrieve the value periodically
 setInterval(getValueFromEndpoint, intervalTime);
+
+// Create the pop-up window for the help button
+const helpBtn = document.getElementById("help-btn");
+const body = document.querySelector("body");
+
+helpBtn.addEventListener("click", () => {
+  const popup = document.createElement("div");
+  popup.setAttribute("id", "help-popup");
+  popup.innerHTML = "<h3>Refer to this video for instructions</h3><p>Some help text goes here.</p><button id='close-btn'>Close</button>";
+  body.appendChild(popup);
+
+  const closeBtn = document.getElementById("close-btn");
+  closeBtn.addEventListener("click", () => {
+    popup.remove();
+  });
+});
