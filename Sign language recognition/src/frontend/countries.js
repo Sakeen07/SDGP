@@ -5,7 +5,10 @@ const countries ={
     "en-GB":"English",
     "es-ES":"Spanish",
     "de-DE":"German",
-    "si-SI":"Sinhalese"
+    "si-SI":"Sinhalese",
+    "ta-TA":"Tamil",
+    "ja-JA":"Japanese",
+    "it-IT":"Italian",
 
 
     
