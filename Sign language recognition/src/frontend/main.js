@@ -152,16 +152,6 @@ const canvasElement = document.getElementById('canvasOutput');
 const canvasCtx = canvasElement.getContext('2d');
 video.width = 640;
 video.height = 480;
-
-//function sendVideoData(cap) {
-//  const xhr = new XMLHttpRequest();
-//  conole.log(cap);
-//  xhr.open('POST', 'http://localhost:5000/video');
-//  xhr.setRequestHeader('Content-Type', 'application/json');
-//  xhr.send(JSON.stringify({cap: cap}));
-//  processVideo();
-//}
-
 navigator.mediaDevices
   .getUserMedia({ video: true, audio: false })
   .then(function (stream) {
@@ -186,11 +176,6 @@ navigator.mediaDevices
     //     // }
     //     let begin = Date.now();
 
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'http://localhost:5000/video');
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify({cap: cap}));
-
     //     // console.log(cap, src, dst)
     //     // start processing.
     //     cap.read(src);
@@ -198,7 +183,7 @@ navigator.mediaDevices
     //     cv.imshow("canvasOutput", dst);
     //     // schedule the next one.
     //     let delay = 1000 / FPS - (Date.now() - begin);
-         setTimeout(processVideo, 1000);
+    //     setTimeout(processVideo, delay);
       } catch (err) {
         console.error(err);
       }
@@ -210,23 +195,23 @@ navigator.mediaDevices
   .catch(function (err) {
     console.log("An error occurred! " + err);
   });
-// let videoElement = document.getElementById('videoInput');
-// const canvasElement = document.getElementById('canvasOutput');
-// const canvasCtx = canvasElement.getContext('2d');
-//
-//
-//         function onResults(results) {
-//           canvasCtx.save();
-//           canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-//           canvasCtx.drawImage(
-//               results.image, 0, 0, canvasElement.width, canvasElement.height);
-//           if (results.multiHandLandmarks) {
-//             for (const landmarks of results.multiHandLandmarks) {
-//               drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,
-//                              {color: '#00FF00', lineWidth: 5});
-//               drawLandmarks(canvasCtx, landmarks, {color: '#FF0000', lineWidth: 2});
-//             }
-//           }
-//           canvasCtx.restore();
-//         }
-//
+ let videoElement = document.getElementById('videoInput');
+ const canvasElement = document.getElementById('canvasOutput');
+ const canvasCtx = canvasElement.getContext('2d');
+
+
+         function onResults(results) {
+           canvasCtx.save();
+           canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+           canvasCtx.drawImage(
+               results.image, 0, 0, canvasElement.width, canvasElement.height);
+           if (results.multiHandLandmarks) {
+             for (const landmarks of results.multiHandLandmarks) {
+               drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,
+                              {color: '#00FF00', lineWidth: 5});
+               drawLandmarks(canvasCtx, landmarks, {color: '#FF0000', lineWidth: 2});
+             }
+           }
+           canvasCtx.restore();
+         }
+        
